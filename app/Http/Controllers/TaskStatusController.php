@@ -14,7 +14,8 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        //
+        $taskStatuses = TaskStatus::paginate();
+        return view('task_status.index', compact('taskStatuses'));
     }
 
     /**
@@ -24,7 +25,8 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        //
+        $taskStatus = new TaskStatus();
+        return view('task_status.create', compact('taskStatus'));
     }
 
     /**
@@ -35,7 +37,14 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required|unique:task_statuses'
+        ]);
+
+        $taskStatus = new TaskStatus($data);
+        $taskStatus->save();
+        flash(__('Status created successfully'))->success();
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -57,7 +66,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
-        //
+        return view('task_status.edit', compact('taskStatus'));
     }
 
     /**
@@ -69,7 +78,14 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required|unique:task_statuses,name,' . $taskStatus->id
+        ]);
+
+        $taskStatus->fill($data);
+        $taskStatus->save();
+        flash(__('Status changed successfully'))->success();
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -80,6 +96,8 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        //
+        $taskStatus->delete();
+        flash(__('Status removed successfully'))->success();
+        return redirect()->route('task_statuses.index');
     }
 }
