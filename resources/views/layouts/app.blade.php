@@ -38,6 +38,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">                        
                         <li class="nav-item">
+                            <a class="nav-link @if (Route::currentRouteName() == 'tasks.index') active @endif"
+                                href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link @if (Route::currentRouteName() == 'task_statuses.index') active @endif"
                                 href="{{ route('task_statuses.index') }}">{{ __('Statuses') }}</a>
                         </li> 

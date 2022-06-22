@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\TaskStatus;
 
 class TaskStatusTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,7 +41,7 @@ class TaskStatusTest extends TestCase
     public function testEdit()
     {
         $taskStatus = TaskStatus::factory()->create();
-        $response = $this->get(route('task_statuses.edit', [$taskStatus]));
+        $response = $this->get(route('task_statuses.edit', $taskStatus));
         $response->assertOk();
     }
 
@@ -57,11 +59,16 @@ class TaskStatusTest extends TestCase
 
     public function testDestroy()
     {
-        $taskStatus = TaskStatus::factory()->create();
-        $response = $this->delete(route('task_statuses.destroy', [$taskStatus]));
+        $taskStatus1 = TaskStatus::factory()->create();
+        $response = $this->delete(route('task_statuses.destroy', $taskStatus1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
+        $this->assertDatabaseMissing('task_statuses', $taskStatus1->only('id'));
 
-        $this->assertDatabaseMissing('task_statuses', $taskStatus->only('id'));
+        $taskStatus2 = TaskStatus::factory()->hasTasks()->create();
+        $response = $this->delete(route('task_statuses.destroy', $taskStatus2));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('task_statuses.index'));
+        $this->assertDatabaseHas('task_statuses', $taskStatus2->only('id'));
     }
 }

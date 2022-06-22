@@ -55,7 +55,7 @@ class TaskStatusController extends Controller
      */
     public function show(TaskStatus $taskStatus)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -96,8 +96,12 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        $taskStatus->delete();
-        flash(__('Status removed successfully'))->success();
+        if ($taskStatus->tasks->count()) {
+            flash(__('Failed to delete status'))->error();
+        } else {
+            $taskStatus->delete();
+            flash(__('Status removed successfully'))->success();
+        }
         return redirect()->route('task_statuses.index');
     }
 }
