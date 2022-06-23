@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
-use App\Models\User;
 use App\Models\Label;
+use App\Models\Task;
 use App\Models\TaskStatus;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
@@ -16,10 +17,14 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user, TaskStatus $taskStatus)
     {
-        $tasks = Task::paginate();
-        return view('task.index', compact('tasks'));
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])
+            ->paginate();
+        $users = $user->getNames();
+        $taskStatuses = $taskStatus->getNames();
+        return view('task.index', compact('tasks', 'users', 'taskStatuses'));
     }
 
     /**

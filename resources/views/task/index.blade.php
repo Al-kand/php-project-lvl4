@@ -4,9 +4,43 @@
     <div class="container">
         @include('flash::message')
         <h1 class="mb-5">{{ __('Tasks') }}</h1>
-        @auth
-            <a href="{{ route('tasks.create') }}" class="btn btn-primary">{{ __('Create task') }}</a>
-        @endauth
+        <div class="d-flex mb-3">
+            <div>
+                {{ Form::model($tasks, [
+                    'route' => 'tasks.index',
+                    'class' => 'row g-1',
+                    'method' => 'GET',
+                ]) }}
+                <div class="col">
+                    {{ Form::select('filter[status_id]', $taskStatuses, request()->get('filter')['status_id'] ?? null, [
+                        'placeholder' => __('Status'),
+                        'class' => 'form-select me-2',
+                    ]) }}
+                </div>
+                <div class="col">
+                    {{ Form::select('filter[created_by_id]', $users, request()->get('filter')['created_by_id'] ?? null, [
+                        'placeholder' => __('Autor'),
+                        'class' => 'form-select me-2',
+                    ]) }}
+                </div>
+                <div class="col">
+                    {{ Form::select('filter[assigned_to_id]', $users, request()->get('filter')['assigned_to_id'] ?? null, [
+                        'placeholder' => __('Executor'),
+                        'class' => 'form-select me-2',
+                    ]) }}
+                </div>
+                <div class="col">
+                    {{ Form::submit(__('Apply'), ['class' => 'btn btn-outline-primary me-2']) }}
+                </div>
+                {{ Form::close() }}
+            </div>
+            <div class="ms-auto">
+                @auth
+                    <a href="{{ route('tasks.create') }}" class="btn btn-primary">{{ __('Create task') }}</a>
+                @endauth
+            </div>
+        </div>
+        
         <table class="table mt-2">
             <thead>
                 <tr>
