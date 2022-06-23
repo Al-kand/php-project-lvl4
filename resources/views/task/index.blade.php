@@ -44,6 +44,7 @@
                     @endauth
                 </tr>
             @endforeach
+            {{ $tasks->links() }}
         </table>
     </div>
 @endsection

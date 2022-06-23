@@ -34,6 +34,7 @@
                     @endauth
                 </tr>
             @endforeach
+            {{ $taskStatuses->links() }}
         </table>
     </div>
 @endsection

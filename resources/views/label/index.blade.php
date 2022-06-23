@@ -34,6 +34,7 @@
                     @endauth
                 </tr>
             @endforeach
+            {{ $labels->links() }}
         </table>
     </div>
 @endsection
