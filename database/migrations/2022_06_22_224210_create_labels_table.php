@@ -13,10 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_statuses', function (Blueprint $table) {
+        Schema::create('labels', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('label_task', function (Blueprint $table) {
+            $table->foreignId('label_id')
+            ->constrained('labels')
+            ->restrictOnDelete();
+            $table->foreignId('task_id')
+            ->constrained('tasks')
+            ->cascadeOnDelete();
         });
     }
 
@@ -27,6 +37,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_statuses');
+        Schema::dropIfExists('label_task');
+        Schema::dropIfExists('labels');
     }
 };

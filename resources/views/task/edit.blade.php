@@ -19,8 +19,10 @@
             @enderror
             {{ Form::label('assigned_to_id', __('Executor')) }}
             {{ Form::select('assigned_to_id', $users, $task->assigned_to_id, ['placeholder' => '----------', 'class' => 'form-control']) }}
+            {{ Form::label('labels', __('Labels')) }}
+            {{ Form::select('labels[]', $labels, $task->labels ?? null, ['placeholder' => '', 'multiple', 'class' => 'form-control']) }}
         </div>
-        {{ Form::submit(__('Refresh'), ['class' => 'btn btn-primary mt-3']) }}
+        {{ Form::submit(__('Update'), ['class' => 'btn btn-primary mt-3']) }}
         {{ Form::close() }}
     </div>
 @endsection

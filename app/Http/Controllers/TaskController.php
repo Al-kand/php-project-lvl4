@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Label;
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,15 +25,19 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\Models\TaTaskStatussk  $taskStatus
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Label  $label
      * @return \Illuminate\Http\Response
      */
-    public function create(TaskStatus $taskStatus, User $user)
+    public function create(TaskStatus $taskStatus, User $user, Label $label)
     {
         $task = new Task();
         $users = $user->getNames();
         $taskStatuses = $taskStatus->getNames();
+        $labels = $label->getNames();
 
-        return view('task.create', compact('task', 'users', 'taskStatuses'));
+        return view('task.create', compact('task', 'users', 'taskStatuses', 'labels'));
     }
 
     /**
@@ -48,12 +53,16 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'required|exists:App\Models\TaskStatus,id',
             'assigned_to_id' => 'nullable|exists:App\Models\User,id',
+            'labels[]' => 'nullable|exists:App\Models\Label,id'
         ]);
 
         $autor = Auth::user();
         $task = new Task($data);
         $task->createdBy()->associate($autor);
         $task->save();
+
+        $labels = array_filter($request->input('labels') ?? []);
+        $task->labels()->sync($labels);
 
         flash(__('Task created successfully'))->success();
         return redirect()->route('tasks.index');
@@ -74,13 +83,17 @@ class TaskController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Task  $task
+     * @param  \App\Models\TaskStatus  $taskStatus
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Label  $label
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task, TaskStatus $taskStatus, User $user)
+    public function edit(Task $task, TaskStatus $taskStatus, User $user, Label $label)
     {
         $users = $user->getNames();
         $taskStatuses = $taskStatus->getNames();
-        return view('task.edit', compact('task', 'users', 'taskStatuses'));
+        $labels = $label->getNames();
+        return view('task.edit', compact('task', 'users', 'taskStatuses', 'labels'));
     }
 
     /**
@@ -97,10 +110,15 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'required|exists:App\Models\TaskStatus,id',
             'assigned_to_id' => 'nullable|exists:App\Models\User,id',
+            'labels[]' => 'nullable|exists:App\Models\Label,id'
         ]);
 
         $task->fill($data);
         $task->save();
+
+        $labels = array_filter($request->input('labels') ?? []);
+        $task->labels()->sync($labels);
+
         flash(__('Task changed successfully'))->success();
         return redirect()->route('tasks.index');
     }

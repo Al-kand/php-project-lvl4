@@ -7,9 +7,11 @@
     "Description": "Описание",
 
     "Change": "Изменить",
+    "Change label": "Изменение метки",
     "Change status": "Изменение статуса",
     "Change task": "Изменение задачи",
     "Create": "Создать",
+    "Create label": "Создать метку",
     "Create status": "Создать статус",
     "Create task": "Создать задачу",
     "Created": "Дата создания",
@@ -18,9 +20,14 @@
     "Email Address": "Email",
     "Executor": "Исполнитель",
 
+    "Failed to delete label": "Не удалось удалить метку",
     "Failed to delete status": "Не удалось удалить статус",
     "Forgot Your Password?": "Забыли пароль?",
 
+    "Labels": "Метки",
+    "Label changed successfully": "Метка успешно изменена",
+    "Label created successfully": "Метка успешно создана",
+    "Label removed successfully": "Метка успешно удалена",
     "Log in": "Вход",
     "Login": "Войти",
     "Logout": "Выход",
@@ -28,8 +35,7 @@
     "Name": "Имя",
 
     "Password": "Пароль",
-
-    "Refresh": "Обновить",
+    
     "Register": "Регистрация",
     "Register Me": "Зарегистрировать",
     "Remember Me": "Запомнить меня",
@@ -46,5 +52,7 @@
     "Task changed successfully": "Задача успешно изменена",
     "Task created successfully": "Задача успешно создана",
     "Task removed successfully": "Задача успешно удалена",
-    "Task view": "Просмотр задачи"
+    "Task view": "Просмотр задачи",
+
+    "Update": "Обновить"
 }

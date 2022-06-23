@@ -11,7 +11,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        {{ Form::submit(__('Refresh'), ['class' => 'btn btn-primary mt-3']) }}
+        {{ Form::submit(__('Update'), ['class' => 'btn btn-primary mt-3']) }}
         {{ Form::close() }}
     </div>
 @endsection

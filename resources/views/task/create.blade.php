@@ -19,6 +19,8 @@
             @enderror
             {{ Form::label('assigned_to_id', __('Executor')) }}
             {{ Form::select('assigned_to_id', $users, null, ['placeholder' => '----------', 'class' => 'form-control']) }}
+            {{ Form::label('labels', __('Labels')) }}
+            {{ Form::select('labels[]', $labels, null, ['placeholder' => '', 'multiple', 'class' => 'form-control']) }}            
         </div>
         {{ Form::submit(__('Create'), ['class' => 'btn btn-primary mt-3']) }}
         {{ Form::close() }}
