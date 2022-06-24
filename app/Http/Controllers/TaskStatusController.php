@@ -39,7 +39,7 @@ class TaskStatusController extends Controller
     {
         $data = $this->validate($request, [
             'name' => 'required|unique:task_statuses'
-        ]);
+        ], [], ['name' => __('Status')]);
 
         $taskStatus = new TaskStatus($data);
         $taskStatus->save();
@@ -80,7 +80,7 @@ class TaskStatusController extends Controller
     {
         $data = $this->validate($request, [
             'name' => 'required|unique:task_statuses,name,' . $taskStatus->id
-        ]);
+        ], [], ['name' => __('Status')]);
 
         $taskStatus->fill($data);
         $taskStatus->save();

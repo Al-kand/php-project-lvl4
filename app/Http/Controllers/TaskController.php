@@ -59,7 +59,7 @@ class TaskController extends Controller
             'status_id' => 'required|exists:App\Models\TaskStatus,id',
             'assigned_to_id' => 'nullable|exists:App\Models\User,id',
             'labels[]' => 'nullable|exists:App\Models\Label,id'
-        ]);
+        ], [], ['name' => __('Task')]);
 
         $autor = Auth::user();
         $task = new Task($data);
@@ -116,7 +116,7 @@ class TaskController extends Controller
             'status_id' => 'required|exists:App\Models\TaskStatus,id',
             'assigned_to_id' => 'nullable|exists:App\Models\User,id',
             'labels[]' => 'nullable|exists:App\Models\Label,id'
-        ]);
+        ], [], ['name' => __('Task')]);
 
         $task->fill($data);
         $task->save();
