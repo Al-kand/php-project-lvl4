@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -18,4 +19,17 @@ class ForgotPasswordController extends Controller
     |
     */
     use SendsPasswordResetEmails;
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $this->validateEmail($request);
+
+        $response = $this->broker()->sendResetLink(
+            $this->credentials($request)
+        );
+
+        flash(__('Sending letters is turned off, this is a test project'))->warning();
+
+        return redirect()->route('main');
+    }
 }
