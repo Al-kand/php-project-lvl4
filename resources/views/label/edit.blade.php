@@ -12,6 +12,9 @@
             @enderror
             {{ Form::label('description', __('Description')) }}
             {{ Form::textarea('description', old('description'), ['class' => 'form-control']) }}
+            @error('description')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         {{ Form::submit(__('Update'), ['class' => 'btn btn-primary mt-3']) }}
         {{ Form::close() }}
