@@ -82,6 +82,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $this->checkAuth();
         return view('task.show', compact('task'));
     }
 
