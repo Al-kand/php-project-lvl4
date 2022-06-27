@@ -17,7 +17,7 @@ class Controller extends BaseController
     protected function checkAuth()
     {
         if (!Auth::check()) {
-            return abort(403);
+            return abort(403, 'This action is unauthorized.');
         }
     }
 }
