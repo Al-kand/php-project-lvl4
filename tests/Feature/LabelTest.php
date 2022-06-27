@@ -38,7 +38,7 @@ class LabelTest extends TestCase
     public function testStore()
     {
         $data = Label::factory()->make()->only('name');
-        $response = $this->post(route('labels.store'), $data);
+        $response = $this->actingAs($this->user)->post(route('labels.store'), $data);
         $response->assertRedirect(route('labels.index'));
         $response->assertSessionHasNoErrors();
 
@@ -60,7 +60,7 @@ class LabelTest extends TestCase
         $label = Label::factory()->create();
         $data = Label::factory()->make()->only('name');
 
-        $response = $this->patch(route('labels.update', $label), $data);
+        $response = $this->actingAs($this->user)->patch(route('labels.update', $label), $data);
         $response->assertRedirect(route('labels.index'));
         $response->assertSessionHasNoErrors();
 
@@ -70,13 +70,13 @@ class LabelTest extends TestCase
     public function testDestroy()
     {
         $Label1 = Label::factory()->create();
-        $response = $this->delete(route('labels.destroy', $Label1));
+        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $Label1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('labels.index'));
         $this->assertDatabaseMissing('labels', $Label1->only('id'));
 
         $Label2 = Label::factory()->hasTasks()->create();
-        $response = $this->delete(route('labels.destroy', $Label2));
+        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $Label2));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('labels.index'));
         $this->assertDatabaseHas('labels', $Label2->only('id'));
