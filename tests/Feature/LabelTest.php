@@ -5,15 +5,19 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Label;
+use App\Models\User;
 
 class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+
     protected function setUp(): void
     {
         parent::setUp();
         Label::factory()->count(2)->make();
+        $this->user = User::factory()->create();
     }
 
     public function testIndex()
@@ -25,6 +29,9 @@ class LabelTest extends TestCase
     public function testCreate()
     {
         $response = $this->get(route('labels.create'));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('labels.create'));
         $response->assertOk();
     }
 
@@ -42,6 +49,9 @@ class LabelTest extends TestCase
     {
         $label = Label::factory()->create();
         $response = $this->get(route('labels.edit', $label));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('labels.edit', $label));
         $response->assertOk();
     }
 

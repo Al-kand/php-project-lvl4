@@ -16,6 +16,13 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertOK();
+    }
+
+    public function testNotFound()
+    {
+        $response = $this->get('empty-page');
+
+        $response->assertStatus(404);
     }
 }

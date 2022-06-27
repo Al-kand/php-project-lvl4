@@ -37,6 +37,7 @@ class TaskController extends Controller
      */
     public function create(TaskStatus $taskStatus, User $user, Label $label)
     {
+        $this->checkAuth();
         $task = new Task();
         $users = $user->getNames();
         $taskStatuses = $taskStatus->getNames();
@@ -95,6 +96,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task, TaskStatus $taskStatus, User $user, Label $label)
     {
+        $this->checkAuth();
         $users = $user->getNames();
         $taskStatuses = $taskStatus->getNames();
         $labels = $label->getNames();

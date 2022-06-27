@@ -5,15 +5,20 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\TaskStatus;
+use App\Models\User;
 
 class TaskStatusTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+
+
     protected function setUp(): void
     {
         parent::setUp();
         TaskStatus::factory()->count(2)->make();
+        $this->user = User::factory()->create();
     }
 
     public function testIndex()
@@ -25,6 +30,9 @@ class TaskStatusTest extends TestCase
     public function testCreate()
     {
         $response = $this->get(route('task_statuses.create'));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('task_statuses.create'));
         $response->assertOk();
     }
 
@@ -41,7 +49,11 @@ class TaskStatusTest extends TestCase
     public function testEdit()
     {
         $taskStatus = TaskStatus::factory()->create();
+
         $response = $this->get(route('task_statuses.edit', $taskStatus));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('task_statuses.edit', $taskStatus));
         $response->assertOk();
     }
 

@@ -25,6 +25,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
+        $this->checkAuth();
         $taskStatus = new TaskStatus();
         return view('task_status.create', compact('taskStatus'));
     }
@@ -66,6 +67,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
+        $this->checkAuth();
         return view('task_status.edit', compact('taskStatus'));
     }
 

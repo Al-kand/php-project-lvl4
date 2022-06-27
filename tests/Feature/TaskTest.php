@@ -11,10 +11,13 @@ class TaskTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+
     protected function setUp(): void
     {
         parent::setUp();
         Task::factory()->count(2)->make();
+        $this->user = User::factory()->create();
     }
 
     public function testIndex()
@@ -26,15 +29,17 @@ class TaskTest extends TestCase
     public function testCreate()
     {
         $response = $this->get(route('tasks.create'));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('tasks.create'));
         $response->assertOk();
     }
 
     public function testStore()
     {
         $data = Task::factory()->make()->only('name', 'description', 'status_id');
-        $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('tasks.store'), $data);
+        $response = $this->actingAs($this->user)->post(route('tasks.store'), $data);
         $response->assertRedirect(route('tasks.index'));
         $response->assertSessionHasNoErrors();
 
@@ -46,6 +51,9 @@ class TaskTest extends TestCase
         $task = Task::factory()->create();
 
         $response = $this->get(route('tasks.edit', $task));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->get(route('tasks.edit', $task));
         $response->assertOk();
     }
 
@@ -55,7 +63,7 @@ class TaskTest extends TestCase
         $data = Task::factory()->make()->only('name', 'description', 'status_id', 'assigned_to_id');
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->patch(route('tasks.update', $task), $data);
+        $response = $this->actingAs($this->user)->patch(route('tasks.update', $task), $data);
         $response->assertRedirect(route('tasks.index'));
         $response->assertSessionHasNoErrors();
 
