@@ -11,7 +11,7 @@
         <p>{{ __('Status') }}: {{ $task->status->name }}</p>
         <p>{{ __('Description') }}: {{ $task->description }}</p>
         @if (!$task->labels->isEmpty())
-            <p>{{ __('Lables') }}: </p>
+            <p>{{ __('Labels') }}: </p>
             <ul>
                 @foreach ($task->labels as $label)
                     <li>{{ $label->name }}</li>
