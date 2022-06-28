@@ -40,7 +40,7 @@
                 @endauth
             </div>
         </div>
-        
+
         <table class="table mt-2">
             <thead>
                 <tr>
@@ -58,12 +58,12 @@
             @foreach ($tasks as $task)
                 <tr>
                     <td>{{ $task->id }}</td>
+                    <td>{{ $task->status->name }}</td>
                     <td>
                         <a class="text-decoration-none" href="{{ route('tasks.show', $task) }}">
-                            {{ $task->status->name }}
+                            {{ $task->name }}
                         </a>
                     </td>
-                    <td>{{ $task->name }}</td>
                     <td>{{ $task->createdBy->name }}</td>
                     <td>{{ $task->assignedTo->name ?? '' }}</td>
                     <td>{{ $task->created_at->format('d.m.Y') }}</td>
