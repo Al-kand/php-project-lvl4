@@ -8,29 +8,30 @@
             <div>
                 {{ Form::model($tasks, [
                     'route' => 'tasks.index',
-                    'class' => 'row g-1',
                     'method' => 'GET',
                 ]) }}
-                <div class="col">
-                    {{ Form::select('filter[status_id]', $taskStatuses, request()->get('filter')['status_id'] ?? null, [
-                        'placeholder' => __('Status'),
-                        'class' => 'form-select me-2',
-                    ]) }}
-                </div>
-                <div class="col">
-                    {{ Form::select('filter[created_by_id]', $users, request()->get('filter')['created_by_id'] ?? null, [
-                        'placeholder' => __('Autor'),
-                        'class' => 'form-select me-2',
-                    ]) }}
-                </div>
-                <div class="col">
-                    {{ Form::select('filter[assigned_to_id]', $users, request()->get('filter')['assigned_to_id'] ?? null, [
-                        'placeholder' => __('Executor'),
-                        'class' => 'form-select me-2',
-                    ]) }}
-                </div>
-                <div class="col">
-                    {{ Form::submit(__('Apply'), ['class' => 'btn btn-outline-primary me-2']) }}
+                <div class="row g-1">
+                    <div class="col">
+                        {{ Form::select('filter[status_id]', $taskStatuses, request()->input('filter.status_id'), [
+                            'placeholder' => __('Status'),
+                            'class' => 'form-select me-2',
+                        ]) }}
+                    </div>
+                    <div class="col">
+                        {{ Form::select('filter[created_by_id]', $users, request()->input('filter.created_by_id'), [
+                            'placeholder' => __('Autor'),
+                            'class' => 'form-select me-2',
+                        ]) }}
+                    </div>
+                    <div class="col">
+                        {{ Form::select('filter[assigned_to_id]', $users, request()->input('filter.assigned_to_id'), [
+                            'placeholder' => __('Executor'),
+                            'class' => 'form-select me-2',
+                        ]) }}
+                    </div>
+                    <div class="col">
+                        {{ Form::submit(__('Apply'), ['class' => 'btn btn-outline-primary me-2']) }}
+                    </div>
                 </div>
                 {{ Form::close() }}
             </div>
