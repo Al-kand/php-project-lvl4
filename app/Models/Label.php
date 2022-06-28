@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 
+/**
+ * App\Models\Label
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|Task[] $tasks
+ */
 class Label extends Model
 {
     use HasFactory;

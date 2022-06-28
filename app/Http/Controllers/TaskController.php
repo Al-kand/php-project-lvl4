@@ -35,7 +35,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Models\TaTaskStatussk  $taskStatus
+     * @param  \App\Models\TaskStatus  $taskStatus
      * @param  \App\Models\User  $user
      * @param  \App\Models\Label  $label
      * @return \Illuminate\Http\Response

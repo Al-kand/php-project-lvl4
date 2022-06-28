@@ -38,7 +38,6 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        $this->checkAuth();
         $data = $this->validate($request, [
             'name' => 'required|unique:labels',
             'description' => 'nullable|string'
@@ -82,7 +81,6 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        $this->checkAuth();
         $data = $this->validate($request, [
             'name' => 'required|unique:labels,name,' . $label->id,
             'description' => 'nullable|string'
@@ -102,7 +100,6 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        $this->checkAuth();
         if ($label->tasks->isEmpty()) {
             $label->delete();
             flash(__('Label removed successfully'))->success();

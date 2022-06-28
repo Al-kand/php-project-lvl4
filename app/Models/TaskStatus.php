@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 
+/**
+ * App\Models\TaskStatus
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|Task[] $tasks
+ */
 class TaskStatus extends Model
 {
     use HasFactory;

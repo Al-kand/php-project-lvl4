@@ -11,6 +11,11 @@ class TaskTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * user
+     *
+     * @var \App\Models\User
+     */
     protected $user;
 
     protected function setUp(): void
@@ -37,13 +42,13 @@ class TaskTest extends TestCase
 
     public function testStore()
     {
-        $data = Task::factory()->make()->only('name', 'description', 'status_id');
+        $data = Task::factory()->make()->toArray();
 
         $response = $this->actingAs($this->user)->post(route('tasks.store'), $data);
         $response->assertRedirect(route('tasks.index'));
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('tasks', $data);
+        $this->assertDatabaseHas('tasks', ['name' => $data['name']]);
     }
 
     public function testEdit()
@@ -60,23 +65,23 @@ class TaskTest extends TestCase
     public function testUpdate()
     {
         $task = Task::factory()->create();
-        $data = Task::factory()->make()->only('name', 'description', 'status_id', 'assigned_to_id');
-        $user = User::factory()->create();
+        $data = Task::factory()->make()->toArray();
 
         $response = $this->actingAs($this->user)->patch(route('tasks.update', $task), $data);
         $response->assertRedirect(route('tasks.index'));
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('tasks', $data);
+        $this->assertDatabaseHas('tasks', ['name' => $data['name']]);
     }
 
     public function testDestroy()
     {
         $task = Task::factory()->create();
+        $id = (array) $task->only('id');
         $response = $this->delete(route('tasks.destroy', $task));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.index'));
 
-        $this->assertDatabaseMissing('tasks', $task->only('id'));
+        $this->assertDatabaseMissing('tasks', $id);
     }
 }

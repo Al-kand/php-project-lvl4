@@ -6,11 +6,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Label;
 use App\Models\User;
+use App\Models\Task;
 
 class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * user
+     *
+     * @var \App\Models\User
+     */
     protected $user;
 
     protected function setUp(): void
@@ -37,7 +43,8 @@ class LabelTest extends TestCase
 
     public function testStore()
     {
-        $data = Label::factory()->make()->only('name');
+        $data = Label::factory()->make()->toArray();
+
         $response = $this->actingAs($this->user)->post(route('labels.store'), $data);
         $response->assertRedirect(route('labels.index'));
         $response->assertSessionHasNoErrors();
@@ -58,7 +65,7 @@ class LabelTest extends TestCase
     public function testUpdate()
     {
         $label = Label::factory()->create();
-        $data = Label::factory()->make()->only('name');
+        $data = Label::factory()->make()->toArray();
 
         $response = $this->actingAs($this->user)->patch(route('labels.update', $label), $data);
         $response->assertRedirect(route('labels.index'));
@@ -69,16 +76,24 @@ class LabelTest extends TestCase
 
     public function testDestroy()
     {
-        $Label1 = Label::factory()->create();
-        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $Label1));
-        $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('labels.index'));
-        $this->assertDatabaseMissing('labels', $Label1->only('id'));
+        $label1 = Label::factory()->create();
+        $id1 = $label1->id;
 
-        $Label2 = Label::factory()->hasTasks()->create();
-        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $Label2));
+        $label2 = Label::factory()
+            ->has(Task::factory()->count(1))
+            ->create();
+        $id2 = $label2->id;
+
+        $this->actingAs($this->user);
+
+        $response = $this->delete(route('labels.destroy', $label1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('labels.index'));
-        $this->assertDatabaseHas('labels', $Label2->only('id'));
+        $this->assertDatabaseMissing('labels', ['id' => $id1]);
+
+        $response = $this->delete(route('labels.destroy', $label2));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('labels.index'));
+        $this->assertDatabaseHas('labels', ['id' => $id2]);
     }
 }
