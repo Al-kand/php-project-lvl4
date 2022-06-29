@@ -5,6 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
+        "fakerphp/faker": "^1.9.1",
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "laracasts/flash": "^3.2",
@@ -16,8 +17,7 @@
         "rollbar/rollbar-laravel": "^7.2",
         "spatie/laravel-query-builder": "^5.0"
     },
-    "require-dev": {
-        "fakerphp/faker": "^1.9.1",
+    "require-dev": {        
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",

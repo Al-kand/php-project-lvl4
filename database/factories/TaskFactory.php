@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Label;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\TaskStatus;
@@ -20,8 +19,8 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word(),
-            'description' => $this->faker->sentence(),
+            'name' => $this->faker->unique()->catchPhrase(),
+            'description' => $this->faker->realText(100),
             'status_id' => TaskStatus::factory(),
             'created_by_id' => User::factory(),
             'assigned_to_id' => User::factory()

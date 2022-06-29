@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\TaskStatus;
+use Carbon\Carbon;
 
 class TaskStatusSeeder extends Seeder
 {
@@ -22,7 +23,7 @@ class TaskStatusSeeder extends Seeder
         ]);
 
         $taskStatuses->each(
-            fn ($name) => TaskStatus::create(['name' => $name])
+            fn ($name) => TaskStatus::create(['name' => $name, 'created_at' => Carbon::now()->subYears(10)])
         );
     }
 }
