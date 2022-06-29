@@ -4,7 +4,7 @@
     "Apply": "Применить",
     "Are you sure?": "Вы уверены?",
     "Autor": "Автор",
-    
+
     "Delete": "Удалить",
     "Description": "Описание",
 
@@ -42,6 +42,8 @@
 
     "Name": "Имя",
 
+    "of": "из",
+
     "Password": "Пароль",
 
     "Regards": "С уважением",
@@ -49,22 +51,25 @@
     "Register Me": "Зарегистрировать",
     "Remember Me": "Запомнить меня",
     "Reset Password": "Сброс пароля",
+    "results": "записей",
 
     "Send Password Reset Link": "Сбросить пароль",
     "Sending letters is turned off, this is a test project": "Отправка писем выключена, это тестовый проект",
+    "Showing": "Показано с",
     "Status": "Статус",
     "Status changed successfully": "Статус успешно изменён",
     "Status created successfully": "Статус успешно создан",
     "Status removed successfully": "Статус успешно удалён",
     "Statuses": "Статусы",
 
-    "Task": "Задача",    
+    "Task": "Задача",
     "Task changed successfully": "Задача успешно изменена",
     "Task created successfully": "Задача успешно создана",
     "Task Manager": "Менеджер задач",
     "Task removed successfully": "Задача успешно удалена",
     "Task view": "Просмотр задачи",
     "Tasks": "Задачи",
+    "to": "по",
     "This password reset link will expire in :count minutes.": "Срок действия ссылки для сброса пароля истекает через :count минут.",
 
     "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для Вашей учетной записи.",
