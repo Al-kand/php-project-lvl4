@@ -13,11 +13,4 @@ class Controller extends BaseController
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
-
-    protected function checkAuth()
-    {
-        if (!Auth::check()) {
-            return abort(403, 'This action is unauthorized.');
-        }
-    }
 }

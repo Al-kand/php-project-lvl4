@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TaskPolicy
+class TaskStatusPolicy
 {
     use HandlesAuthorization;
 
@@ -17,17 +16,6 @@ class TaskPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(?User $user)
-    {
-        return true;
-    }
-
-    // /**
-    //  * Determine whether the user can view the model.
-    //  *
-    //  * @param  \App\Models\User  $user
-    //  * @return \Illuminate\Auth\Access\Response|bool
-    //  */
-    public function view(?User $user)
     {
         return true;
     }
@@ -58,11 +46,10 @@ class TaskPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Task $task)
+    public function delete(User $user)
     {
-        return $user->id === $task->created_by_id;
+        return true;
     }
 }

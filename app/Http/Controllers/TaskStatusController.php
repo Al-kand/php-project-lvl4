@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class TaskStatusController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(TaskStatus::class, 'task_status');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,6 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        $this->checkAuth();
         $taskStatus = new TaskStatus();
         return view('task_status.create', compact('taskStatus'));
     }
@@ -67,7 +71,6 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
-        $this->checkAuth();
         return view('task_status.edit', compact('taskStatus'));
     }
 

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Label::class, 'label');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,6 @@ class LabelController extends Controller
      */
     public function create()
     {
-        $this->checkAuth();
         $label = new Label();
         return view('label.create', compact('label'));
     }
@@ -68,7 +72,6 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        $this->checkAuth();
         return view('label.edit', compact('label'));
     }
 

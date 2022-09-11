@@ -45,6 +45,9 @@ class LabelTest extends TestCase
     {
         $data = Label::factory()->make()->toArray();
 
+        $response = $this->post(route('labels.store'), $data);
+        $response->assertStatus(403);
+
         $response = $this->actingAs($this->user)->post(route('labels.store'), $data);
         $response->assertRedirect(route('labels.index'));
         $response->assertSessionHasNoErrors();
@@ -55,6 +58,7 @@ class LabelTest extends TestCase
     public function testEdit()
     {
         $label = Label::factory()->create();
+
         $response = $this->get(route('labels.edit', $label));
         $response->assertStatus(403);
 
@@ -66,6 +70,9 @@ class LabelTest extends TestCase
     {
         $label = Label::factory()->create();
         $data = Label::factory()->make()->toArray();
+
+        $response = $this->patch(route('labels.update', $label), $data);
+        $response->assertStatus(403);
 
         $response = $this->actingAs($this->user)->patch(route('labels.update', $label), $data);
         $response->assertRedirect(route('labels.index'));
@@ -83,6 +90,9 @@ class LabelTest extends TestCase
             ->has(Task::factory()->count(1))
             ->create();
         $id2 = $label2->id;
+
+        $response = $this->delete(route('labels.destroy', $label1));
+        $response->assertStatus(403);
 
         $this->actingAs($this->user);
 

@@ -44,7 +44,11 @@ class TaskStatusTest extends TestCase
     public function testStore()
     {
         $data = TaskStatus::factory()->make()->toArray();
+
         $response = $this->post(route('task_statuses.store'), $data);
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $data);
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
@@ -68,6 +72,9 @@ class TaskStatusTest extends TestCase
         $data = TaskStatus::factory()->make()->toArray();
 
         $response = $this->patch(route('task_statuses.update', $taskStatus), $data);
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->patch(route('task_statuses.update', $taskStatus), $data);
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
@@ -78,7 +85,11 @@ class TaskStatusTest extends TestCase
     {
         $taskStatus1 = TaskStatus::factory()->create();
         $name1 = (array) $taskStatus1->only(['name']);
+
         $response = $this->delete(route('task_statuses.destroy', $taskStatus1));
+        $response->assertStatus(403);
+
+        $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', $taskStatus1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
         $this->assertDatabaseMissing('task_statuses', $name1);
@@ -87,7 +98,7 @@ class TaskStatusTest extends TestCase
             ->has(Task::factory()->count(1))
             ->create();
         $name2 = (array) $taskStatus2->only(['name']);
-        $response = $this->delete(route('task_statuses.destroy', $taskStatus2));
+        $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', $taskStatus2));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
         $this->assertDatabaseHas('task_statuses', $name2);
