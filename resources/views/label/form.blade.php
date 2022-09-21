@@ -24,6 +24,6 @@
         @enderror
     </div>
     <div class="mt-2">
-        {{ Form::submit(__('Create'), ['class' => 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded']) }}
+        {{ Form::submit($submittedValue, ['class' => 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded']) }}
     </div>
 </div>
