@@ -6,6 +6,7 @@ setup:
 	cp -n .env.example .env|| true
 	php artisan key:gen --ansi
 	php artisan migrate --force
+	npm install
 	npm run build
 	
 log:
