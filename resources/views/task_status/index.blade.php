@@ -1,14 +1,16 @@
-@extends('layouts.app')
-
-@section('content')
-    <div class="container">
-        @include('flash::message')
+<x-app-layout>
+    <div class="grid col-span-full">
         <h1 class="mb-5">{{ __('Statuses') }}</h1>
         @auth
-            <a href="{{ route('task_statuses.create') }}" class="btn btn-primary">{{ __('Create status') }}</a>
+            <div>
+                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    href="{{ route('task_statuses.create') }}">
+                    {{ __('Create status') }}
+                </a>
+            </div>
         @endauth
-        <table class="table mt-2">
-            <thead>
+        <table class="mt-4">
+            <thead class="border-b-2 border-solid border-black text-left">
                 <tr>
                     <th>{{ __('ID') }}</th>
                     <th>{{ __('Name') }}</th>
@@ -19,22 +21,23 @@
                 </tr>
             </thead>
             @foreach ($taskStatuses as $taskStatus)
-                <tr>
+                <tr class="border-b border-dashed text-left">
                     <td>{{ $taskStatus->id }}</td>
                     <td>{{ $taskStatus->name }}</td>
                     <td>{{ $taskStatus->created_at->format('d.m.Y') }}</td>
                     @auth
                         <td>
-                            <a class="text-danger text-decoration-none"
-                                href="{{ route('task_statuses.destroy', $taskStatus) }}"
-                                data-confirm="{{ __('Are you sure?') }}" data-method="delete">{{ __('Delete') }}</a>
-                            <a class="text-decoration-none"
+                            <a class="text-red-600 hover:text-red-900" data-confirm="{{ __('Are you sure?') }}"
+                                data-method="delete" href="{{ route('task_statuses.destroy', $taskStatus) }}">
+                                {{ __('Delete') }}
+                            </a>
+                            <a class="text-blue-600 hover:text-blue-900"
                                 href="{{ route('task_statuses.edit', $taskStatus) }}">{{ __('Change') }}</a>
                         </td>
                     @endauth
                 </tr>
             @endforeach
-            {{ $taskStatuses->links() }}
         </table>
+        {{ $taskStatuses->links() }}
     </div>
-@endsection
+</x-app-layout>

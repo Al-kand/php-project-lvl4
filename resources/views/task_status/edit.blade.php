@@ -1,17 +1,8 @@
-@extends('layouts.app')
-
-@section('content')
-    <div class="container">
-        <h1 class="mb-5">{{__('Change status')}}</h1>
-        {{ Form::model($taskStatus, ['route' =>[ 'task_statuses.update', $taskStatus], 'method' => 'PATCH', 'class' => 'w-50']) }}
-        <div class="form-group mb-3">
-            {{ Form::label('name', __('Name')) }}
-            {{ Form::text('name', $taskStatus->name, ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control']) }}
-            @error('name')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-        {{ Form::submit(__('Update'), ['class' => 'btn btn-primary mt-3']) }}
+<x-app-layout>
+    <div class="grid col-span-full">
+        <h1 class="mb-5">{{ __('Change status') }}</h1>
+        {{ Form::model($taskStatus, ['route' => ['task_statuses.update', $taskStatus], 'method' => 'PATCH', 'class' => 'w-50']) }}
+        @include('task_status.form', ['submittedValue' => __('Update')])
         {{ Form::close() }}
     </div>
-@endsection
+</x-app-layout>

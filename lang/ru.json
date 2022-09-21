@@ -1,6 +1,7 @@
 {
     "Actions": "Действия",
     "All rights reserved.": "Все права защищены.",
+    "Already registered?": "Уже зарегистрированы?",
     "Apply": "Применить",
     "Are you sure?": "Вы уверены?",
     "Autor": "Автор",
@@ -17,14 +18,17 @@
     "Create status": "Создать статус",
     "Create task": "Создать задачу",
     "Created": "Дата создания",
+    "Confirm": "Подтвердить",
     "Confirm Password": "Подтверждение",
 
     "Email Address": "Email",
+    "Email Password Reset Link": "Сбросить пароль",
     "Executor": "Исполнитель",
+    "Exit": "Выход",
 
     "Failed to delete label": "Не удалось удалить метку",
     "Failed to delete status": "Не удалось удалить статус",
-    "Forgot Your Password?": "Забыли пароль?",
+    "Forgot your password?": "Забыли пароль?",
 
     "Hello!": "Здравствуйте!",
 
@@ -49,7 +53,7 @@
     "Regards": "С уважением",
     "Register": "Регистрация",
     "Register Me": "Зарегистрировать",
-    "Remember Me": "Запомнить меня",
+    "Remember me": "Запомнить меня",
     "Reset Password": "Сброс пароля",
     "results": "записей",
 
@@ -71,7 +75,9 @@
     "Tasks": "Задачи",
     "to": "по",
     "This password reset link will expire in :count minutes.": "Срок действия ссылки для сброса пароля истекает через :count минут.",
-
-    "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для Вашей учетной записи.",
-    "Update": "Обновить"
+    
+    "Update": "Обновить",
+    "Whoops! Something went wrong.": "Упс! Что-то пошло не так:",
+    "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для Вашей учетной записи."
+    
 }

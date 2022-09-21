@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Moscow',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +185,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Rollbar\Laravel\RollbarServiceProvider::class,
 
         /*
          * Application Service Providers...
