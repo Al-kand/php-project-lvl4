@@ -103,12 +103,13 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if ($label->tasks->isEmpty()) {
+        if ($label->tasks()->get()->isEmpty()) {
             $label->delete();
             flash(__('Label removed successfully'))->success();
         } else {
             flash(__('Failed to delete label'))->error();
         }
+
         return redirect()->route('labels.index');
     }
 }

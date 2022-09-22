@@ -16,6 +16,7 @@ class LabelTest extends TestCase
      * user
      *
      * @var \App\Models\User
+     *
      */
     protected $user;
 
@@ -84,24 +85,24 @@ class LabelTest extends TestCase
     public function testDestroy()
     {
         $label1 = Label::factory()->create();
-        $id1 = $label1->id;
-
-        $label2 = Label::factory()
-            ->has(Task::factory()->count(1))
-            ->create();
-        $id2 = $label2->id;
+        $id1 = $label1->value('id');
 
         $response = $this->delete(route('labels.destroy', $label1));
         $response->assertStatus(403);
+        $this->assertDatabaseHas('labels', ['id' => $id1]);
 
-        $this->actingAs($this->user);
-
-        $response = $this->delete(route('labels.destroy', $label1));
+        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $label1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('labels.index'));
         $this->assertDatabaseMissing('labels', ['id' => $id1]);
 
-        $response = $this->delete(route('labels.destroy', $label2));
+
+        $label2 = Label::factory()
+            ->has(Task::factory()->count(1))
+            ->create();
+        $id2 = $label2->value('id');
+
+        $response = $this->actingAs($this->user)->delete(route('labels.destroy', $label2));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('labels.index'));
         $this->assertDatabaseHas('labels', ['id' => $id2]);

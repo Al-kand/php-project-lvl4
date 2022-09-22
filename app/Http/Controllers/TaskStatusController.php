@@ -101,7 +101,7 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if ($taskStatus->tasks->isEmpty()) {
+        if ($taskStatus->tasks()->get()->isEmpty()) {
             $taskStatus->delete();
             flash(__('Status removed successfully'))->success();
         } else {

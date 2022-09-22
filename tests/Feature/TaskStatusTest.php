@@ -84,7 +84,7 @@ class TaskStatusTest extends TestCase
     public function testDestroy()
     {
         $taskStatus1 = TaskStatus::factory()->create();
-        $name1 = (array) $taskStatus1->only(['name']);
+        $name1 = $taskStatus1->value('name');
 
         $response = $this->delete(route('task_statuses.destroy', $taskStatus1));
         $response->assertStatus(403);
@@ -92,15 +92,15 @@ class TaskStatusTest extends TestCase
         $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', $taskStatus1));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
-        $this->assertDatabaseMissing('task_statuses', $name1);
+        $this->assertDatabaseMissing('task_statuses', ['name' => $name1]);
 
         $taskStatus2 = TaskStatus::factory()
             ->has(Task::factory()->count(1))
             ->create();
-        $name2 = (array) $taskStatus2->only(['name']);
+        $name2 = $taskStatus2->value('name');
         $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', $taskStatus2));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
-        $this->assertDatabaseHas('task_statuses', $name2);
+        $this->assertDatabaseHas('task_statuses', ['name' => $name2]);
     }
 }

@@ -82,22 +82,22 @@ class TaskTest extends TestCase
 
     public function testDestroy()
     {
-        $task = Task::factory()->create();
-        $id = (array) $task->only('id');
+        $task = Task::factory()->create([
+            'created_by_id' => $this->user
+        ]);
+        $id = $task->value('id');
+        $user = User::factory()->create();
 
         $response = $this->delete(route('tasks.destroy', $task));
         $response->assertStatus(403);
-
-        $response = $this->actingAs($this->user)->delete(route('tasks.destroy', $task));
+        $response = $this->actingAs($user)->delete(route('tasks.destroy', $task));
         $response->assertStatus(403);
-
-        $task->createdBy()->associate($this->user);
-        $task->save();
+        $this->assertDatabaseHas('tasks', ['id' => $id]);
 
         $response = $this->actingAs($this->user)->delete(route('tasks.destroy', $task));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.index'));
 
-        $this->assertDatabaseMissing('tasks', $id);
+        $this->assertDatabaseMissing('tasks', ['id' => $id]);
     }
 }

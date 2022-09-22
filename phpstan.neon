@@ -1,0 +1,6 @@
+parameters:
+	excludePaths:
+		- tests/Feature/Auth/*
+	level: 2
+	paths:
+		- tests

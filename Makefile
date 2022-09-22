@@ -23,3 +23,7 @@ deploy:
 
 lint:
 	composer exec --verbose phpcs -- --standard=PSR2 routes app tests
+
+
+phpstan:
+	vendor/bin/phpstan  analyse -c phpstan.neon
