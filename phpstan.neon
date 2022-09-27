@@ -4,3 +4,4 @@ parameters:
 	level: 2
 	paths:
 		- tests
+		- app/Policies
