@@ -39,4 +39,4 @@ make start
 
 ## Example
 
-[Task Manager](http://hexlet4.herokuapp.com)
+[Task Manager](https://hexlet4.herokuapp.com)
