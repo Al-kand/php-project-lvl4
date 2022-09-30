@@ -109,7 +109,6 @@ class LabelController extends Controller
         } else {
             flash(__('Failed to delete label'))->error();
         }
-
         return redirect()->route('labels.index');
     }
 }
