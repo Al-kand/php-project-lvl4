@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Label;
 use App\Models\User;
@@ -10,8 +9,6 @@ use App\Models\Task;
 
 class LabelTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * user
      *
